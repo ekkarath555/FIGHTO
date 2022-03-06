@@ -1,0 +1,146 @@
+
+<body style="background-color: #faf0e6;width: 100vw; height: 100vh;">
+  <div class="container">
+      <div class="row" style="padding-top: 50px;">
+        <h1 class="text-center" style="color:#34282c">_!GL4AIRLINE!_</h1>
+        <form style="padding-left: 150px; padding-right: 150px; "class="row" [formGroup]="flightform" (ngSubmit)="onSubmit(flightform.value)">
+          <div class="mt-3">
+            <label style="color:#34282c"><b>Full Name</b></label>
+            <span style="color: red" *ngIf="flightform.get('fullName')?.errors?.['required']"> *required</span>
+            <input type="text" class="form-control" id="fullname" formControlName="fullName" required />
+
+          </div>
+
+          <div class="col-md-6 mt-3">
+            <label class="form-label" style="color:#34282c"><b>From</b></label>
+            <select class="form-select" formControlName="from">
+              <option value="null">Select province</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Korea">Korea</option>
+              <option value="New York">New York</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Russia">Russia</option>
+            </select>
+
+          </div>
+
+          <div class="col-md-6 mt-3">
+            <label class="form-label" style="color:#34282c"><b>To</b></label>
+            <select class="form-select" formControlName="to">
+              <option value="null">Select province</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Korea">Korea</option>
+              <option value="New York">New York</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Russia">Russia</option>
+            </select>
+          </div>
+          <div class="col-md-4 mt-3">
+            <label class="form-label">
+              <label style="color:#34282c"><b>Trip Type</b></label> <span style="color: red" *ngIf="flightform.get('type')?.errors?.['required']"> *required</span><br/>
+            </label>
+            <div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="One way" name="type" id="type" formControlName="type">
+                  <label class="form-check-label ms-2" for="type" style="color:#34282c">One way</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input ms-4" type="radio" value="Return" name="type" id="type" formControlName="type">
+                <label class="form-check-label ms-2" for="type" style="color:#34282c">Return</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mt-3">
+            <label>
+              <b style="color:#34282c">Departure</b>
+            </label> <span style="color: red" *ngIf="flightform.get('departure')?.errors?.['required']"> *required</span><br>
+            <div>
+
+              <mat-form-field appearance="fill">
+                <input matInput [matDatepicker]="picker1" formControlName="departure" [min]="startDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+            </div>
+          </div>
+          <div class="col-md-4 mt-3">
+            <label>
+              <b style="color:#34282c">Arrival</b>
+            </label> <span style="color: red" *ngIf="flightform.get('arrival')?.errors?.['required']"> *required</span><br>
+            <div>
+              <mat-form-field appearance="fill">
+
+                <input matInput [matDatepicker]="picker2" formControlName="arrival" [min]="flightform.value.departure">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+          </div>
+
+
+          <div class="col-md-4 mt-3">
+            <label><b style="color:#34282c">Adults</b></label>
+            <span style="color: red" *ngIf="flightform.get('adults')?.errors?.['required']"> *required</span>
+            <span style="color: red" *ngIf="flightform.get('adults')?.errors?.['max']"> *max 10 passenger</span>
+            <span style="color: red" *ngIf="flightform.get('adults')?.errors?.['pattern']"> *pattern is not correct</span>
+            <input type="number" class="form-control" id="adults" formControlName="adults" value="0" required min="0" />
+          </div>
+          <div class="col-md-4 mt-3 ">
+            <label><b style="color:#34282c">Children</b></label>
+            <span style="color: red" *ngIf="flightform.get('children')?.errors?.['required']"> *required</span>
+            <span style="color: red" *ngIf="flightform.get('children')?.errors?.['max']">*max 10 passenger</span>
+            <span style="color: red" *ngIf="flightform.get('children')?.errors?.['pattern']">*pattern is not correct</span>
+            <input type="number" class="form-control" id="children" formControlName="children" value="0" required min="0"/>
+          </div>
+          <div class="col-md-4 mt-3 mb-3">
+
+              <label><b style="color:#34282c">Infants</b></label>
+              <span style="color: red" *ngIf="flightform.get('infants')?.errors?.['required']"> *required</span>
+              <span style="color: red" *ngIf="flightform.get('infants')?.errors?.['max']">*max 10 passenger</span>
+              <span style="color: red" *ngIf="flightform.get('infants')?.errors?.['pattern']">*pattern is not correct</span>
+              <input type="number" class="form-control" id="infants" formControlName="infants" value="0" required min="0" />
+
+
+          </div>
+
+          <button type="submit" style="background-color: #fcd12a;" class="btn  btn-lg btn-block" [disabled]="flightform.invalid"><b style="color:#34282c">Submit</b></button>
+        </form>
+
+        <table class="table mt-5">
+          <thead style="background-color: #fcd12a;">
+            <tr style="color:#34282c">
+              <th scope="col">Full Name</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Trip Type</th>
+              <th scope="col">Departure</th>
+              <th scope="col">Arrival</th>
+              <th scope="col">Adults</th>
+              <th scope="col">Chlidren</th>
+              <th scope="col">Infants</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let flight of flightData" style="color:#34282c">
+              <td>{{ flight.fullName }}</td>
+              <td>{{ flight.from }}</td>
+              <td>{{ flight.to }}</td>
+              <td>{{ flight.type }}</td>
+              <td>{{ flight.departure.getDate() + '/' + (flight.departure.getMonth() + 1) + '/' +
+                flight.departure.getFullYear() }}</td>
+              <td>{{ flight.arrival.getDate() + '/' + (flight.arrival.getMonth() + 1) + '/' + flight.arrival.getFullYear()
+                }}</td>
+              <td>{{ flight.adults }}</td>
+              <td>{{ flight.children }}</td>
+              <td>{{ flight.infants }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+    </body>
